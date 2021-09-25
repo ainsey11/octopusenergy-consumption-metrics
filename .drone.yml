@@ -1,0 +1,16 @@
+kind: pipeline
+type: docker
+name: default
+
+pipeline:
+  build:
+    image: node:14-buster-slim
+    commands:
+      - npm install
+  publish:
+    image: plugins/docker
+    repo: ${REGISTRY_URL}/home/octopusenergy-consumption-metrics:latest
+    username: ${REGISTRY_USERNAME}
+    password: ${REGISTRY_PASSWORD}
+    when:
+      branch: master

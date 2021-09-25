@@ -1,4 +1,13 @@
-const API_KEY = process.env.API_KEY
-const ACCOUNT_NUMBER = process.env.ACCOUNT_NUMBER
-const ELECTRIC_MPAN = process.env.ELECTRIC_MPAN
-const GAS_MPAN = process.env.GAS_MPAN
+// Libraries
+const influx=require("influx")
+
+
+// Env Vars
+const {
+    API_KEY,
+    ACCOUNT_NUMBER,
+    ELECTRIC_MPAN,
+    GAS_MPAN,
+    INFLUXDB_URL
+} = process.env
+
