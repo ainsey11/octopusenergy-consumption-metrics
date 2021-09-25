@@ -12,5 +12,8 @@
     "url": "ssh://git@git.nerdcave.us:222/robert/octopus-exporter.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "influx": "^5.9.2"
+  }
 }
