@@ -9,7 +9,10 @@ pipeline:
       - npm install
   publish:
     image: plugins/docker
-    repo: registry.nerdcave.us/home/octopusenergy-consumption-metrics:latest
+    repo: registry.nerdcave.us/home/octopusenergy-consumption-metrics
+    tags:
+      - latest
+      - ${DRONE_COMMIT_SHA}
     username: ${REGISTRY_USERNAME}
     password: ${REGISTRY_PASSWORD}
     when:
