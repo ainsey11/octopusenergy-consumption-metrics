@@ -3,11 +3,7 @@ type: docker
 name: default
 
 pipeline:
-  build:
-    image: node:14-buster-slim
-    commands:
-      - npm install
-  publish:
+  buildandpublish:
     image: plugins/docker
     registry: registry.nerdcave.us
     repo: registry.nerdcave.us/house/octopusenergy-consumption-metrics
