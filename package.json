@@ -1,0 +1,16 @@
+{
+  "name": "octopus-exporter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.nerdcave.us:222/robert/octopus-exporter.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
