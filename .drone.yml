@@ -13,7 +13,14 @@ pipeline:
     tags:
       - latest
       - ${DRONE_COMMIT_SHA}
-    username: ${REGISTRY_USERNAME}
-    password: ${REGISTRY_PASSWORD}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    secrets:
+      - source: REGISTRY_USERNAME
+        target: docker_username
+      - source: REGISTRY_PASSWORD
+        target: docker_password
     when:
       branch: master
