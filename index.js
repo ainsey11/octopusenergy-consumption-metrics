@@ -22,7 +22,10 @@ const {
     INFLUXDB_ORG,
     INFLUXDB_BUCKET,
     LOOP_TIME,
-    PAGE_SIZE
+    PAGE_SIZE,
+    VOLUME_CORRECTION,
+    CALORIFIC_VALUE,
+    JOULES_CONVERSION
 } = process.env
 
 const boot = async (callback) => {
@@ -42,6 +45,9 @@ const boot = async (callback) => {
         OCTO_ELECTRIC_COST = ${OCTO_ELECTRIC_COST}
         OCTO_GAS_COST = ${OCTO_GAS_COST}
         PAGE_SIZE = ${PAGE_SIZE}
+        VOLUME_CORRECTION = ${VOLUME_CORRECTION}
+        CALORIFIC_VALUE = ${CALORIFIC_VALUE}
+        JOULES_CONVERSION = ${JOULES_CONVERSION}
     `)
 
 
@@ -99,14 +105,21 @@ const boot = async (callback) => {
             let gaspoint = new Point('gas')
                 .floatField('consumption', Number(obj.consumption))
                 .timestamp(nanoDate)
+
+            let kilowatts = (Number(obj.consumption) * Number(VOLUME_CORRECTION) * Number(CALORIFIC_VALUE)) / Number(JOULES_CONVERSION)
+
+            let gaskwhpoint = new Point('gaskwh')
+            .floatField('consumption_kwh', Number(kilowatts))
+            .timestamp(nanoDate)
             
-            let gascost = Number(obj.consumption) * Number(OCTO_GAS_COST) / 100
+            let gascost = Number(kilowatts) * Number(OCTO_GAS_COST) / 100
 
             let gascostpoint = new Point('gas_cost')
                 .floatField('price', gascost)
                 .timestamp(nanoDate)
 
             writeApi.writePoint(gaspoint)
+            writeApi.writePoint(gaskwhpoint)
             writeApi.writePoint(gascostpoint)
 
         }
