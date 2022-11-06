@@ -24,7 +24,7 @@ const
     INFLUXDB_TOKEN = env.get('INFLUXDB_TOKEN').required().asString(),
     INFLUXDB_ORG = env.get('INFLUXDB_ORG').required().asString(),
     INFLUXDB_BUCKET = env.get('INFLUXDB_BUCKET').required().asString(),
-    LOOP_TIME = env.get('INFLUXDB_BUCKET').required().asString(),
+    LOOP_TIME = env.get('LOOP_TIME').required().asString(),
     PAGE_SIZE = env.get('PAGE_SIZE').required().asString(),
     VOLUME_CORRECTION = env.get('VOLUME_CORRECTION').required().asString(),
     CALORIFIC_VALUE = env.get('CALORIFIC_VALUE').required().asString(),
