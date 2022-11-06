@@ -47,6 +47,9 @@ To run the application, it takes certain variables to make it function. All of t
     INFLUXDB_BUCKET = the bucket name for your metrics to be stored in, this must exist first
     LOOP_TIME = How often to poll the Octopus API in seconds
     PAGE_SIZE = How many data points to retrieve in one go, useful if you want to pull a large backload of data in for historical reasons, realistically this can be set to 48 (1 point every 30 mins in a 24 hour window) - maximum sizes are in the Octopus API docs
+    VOLUME_CORRECTION = 1.02264 = standard volume correction rate for gas
+    CALORIFIC_VALUE = 37.5 = standard calorific calue for gas
+    JOULES_CONVERSION = 3.6 = standard conversion divider to convert to joules for gas
 
 ```
 You can find the MPAN,MPRN and SN's of your devices in the Octopus dashboard
