@@ -16,7 +16,7 @@ This was quite frustrating as I had originally planned to do this as a prometheu
 
 This is because you can specify the timestamp of the data point when you write it into Influx, meaning that I can poll the API for "new" data every so often, and back load it into influx.
 
-More information can be found on my blog here: XXXXXX
+More information can be found on my blog [here](https://ainsey11.com/monitoring-my-energy-consumption-with-octopus-energy-grafana-influxdb-and-node-js/)
 
 ## Requirements
 
