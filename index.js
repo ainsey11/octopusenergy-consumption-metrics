@@ -5,28 +5,31 @@ const { toNanoDate } = require("influx")
 const axios = require('axios');
 const dotenv = require('dotenv');
 const sleep = require('./sleep')
+
+const env = require('env-var')
+
 // Load dotenv
 dotenv.config();
 
 // Env Vars
-const {
-    OCTO_API_KEY,
-    OCTO_ELECTRIC_SN,
-    OCTO_ELECTRIC_MPAN,
-    OCTO_GAS_MPRN,
-    OCTO_GAS_SN,
-    OCTO_ELECTRIC_COST,
-    OCTO_GAS_COST,
-    INFLUXDB_URL,
-    INFLUXDB_TOKEN,
-    INFLUXDB_ORG,
-    INFLUXDB_BUCKET,
-    LOOP_TIME,
-    PAGE_SIZE,
-    VOLUME_CORRECTION,
-    CALORIFIC_VALUE,
-    JOULES_CONVERSION
-} = process.env
+const 
+    OCTO_API_KEY = env.get('OCTO_API_KEY').required().asString(),
+    OCTO_ELECTRIC_SN = env.get('OCTO_ELECTRIC_SN').required().asString(),
+    OCTO_ELECTRIC_MPAN = env.get('OCTO_ELECTRIC_MPAN').required().asString(),
+    OCTO_GAS_MPRN = env.get('OCTO_GAS_MPRN').required().asString(),
+    OCTO_GAS_SN = env.get('OCTO_GAS_SN').required().asString(),
+    OCTO_ELECTRIC_COST = env.get('OCTO_ELECTRIC_COST').required().asString(),
+    OCTO_GAS_COST = env.get('OCTO_GAS_COST').required().asString(),
+    INFLUXDB_URL = env.get('INFLUXDB_URL').required().asString(),
+    INFLUXDB_TOKEN = env.get('INFLUXDB_TOKEN').required().asString(),
+    INFLUXDB_ORG = env.get('INFLUXDB_ORG').required().asString(),
+    INFLUXDB_BUCKET = env.get('INFLUXDB_BUCKET').required().asString(),
+    LOOP_TIME = env.get('INFLUXDB_BUCKET').required().asString(),
+    PAGE_SIZE = env.get('PAGE_SIZE').required().asString(),
+    VOLUME_CORRECTION = env.get('VOLUME_CORRECTION').required().asString(),
+    CALORIFIC_VALUE = env.get('CALORIFIC_VALUE').required().asString(),
+    JOULES_CONVERSION= env.get('JOULES_CONVERSION').required().asString()
+
 
 const boot = async (callback) => {
     console.log("Starting Octopus Energy Consumption Metrics Container")
@@ -49,6 +52,7 @@ const boot = async (callback) => {
         CALORIFIC_VALUE = ${CALORIFIC_VALUE}
         JOULES_CONVERSION = ${JOULES_CONVERSION}
     `)
+
 
 
     while (true){
