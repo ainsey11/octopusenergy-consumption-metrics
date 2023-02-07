@@ -29,6 +29,13 @@ You will need:
  - NodeJS installed or docker
  - An InfluxDB server running with a token generated and a bucket created
 
+## Docker
+
+`docker build -t repo/octopus-energy-metrics:latest . `
+
+## Docker-compose
+
+rename the `.env.example` file to `.env` and edit the values in the `.env` file then run `docker-compose up -d` or `docker compose up -d`
  
 ## Environment Variables
 To run the application, it takes certain variables to make it function. All of these variables are mandatory for the code to work.
