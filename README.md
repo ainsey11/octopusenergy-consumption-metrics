@@ -59,3 +59,6 @@ To run the application, it takes certain variables to make it function. All of t
 
 ```
 You can find the MPAN,MPRN and SN's of your devices in the Octopus dashboard
+
+
+## Discord Server to aid discussions for my projects: [https://discord.gg/VWNXq4Em]
