@@ -1,5 +1,4 @@
 # octopus consumption metrics
-[![Build Status](http://drone.nerdcave.us/api/badges/Home/octopusenergy-consumption-metrics/status.svg)](http://drone.nerdcave.us/Home/octopusenergy-consumption-metrics)
 
 A utility written in nodejs to pull energy consumption from the Octopus Energy API for tracking usage in grafana.
 
