@@ -30,7 +30,7 @@ You will need:
 
 ## Docker
 
-`docker build -t repo/octopus-energy-metrics:latest . `
+`docker build -t {yourrepo}/octopus-energy-metrics:latest . `
 
 ## Docker-compose
 
