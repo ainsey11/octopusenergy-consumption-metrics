@@ -30,11 +30,11 @@ You will need:
 
 ## Docker
 
-`docker build -t repo/octopus-energy-metrics:latest . `
+`docker build -t repo/octopus-energy-metrics:latest .  && docker run -d --name octopus-monitor repo/octopus-energy-metrics:latest`
 
 ## Docker-compose
 
-rename the `.env.example` file to `.env` and edit the values in the `.env` file then run `docker-compose up -d` or `docker compose up -d`
+rename the `.env.example` file to `.env` and edit the values in the `.env` file then run `docker-compose up -d` or `docker compose up -d` depending on which version of compose you are using.
  
 ## Environment Variables
 To run the application, it takes certain variables to make it function. All of these variables are mandatory for the code to work.
