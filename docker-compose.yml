@@ -3,7 +3,7 @@ version: "3.7"
 
 services:  
   octopus:
-    image: repo/octopus-energy-metrics:latest
+    build: .
     environment:
       - OCTO_API_KEY=$OCTO_API_KEY
       - OCTO_ELECTRIC_MPAN=$OCTO_ELECTRIC_MPAN
