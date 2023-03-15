@@ -28,7 +28,9 @@ const
     PAGE_SIZE = env.get('PAGE_SIZE').required().asString(),
     VOLUME_CORRECTION = env.get('VOLUME_CORRECTION').required().asString(),
     CALORIFIC_VALUE = env.get('CALORIFIC_VALUE').required().asString(),
-    JOULES_CONVERSION= env.get('JOULES_CONVERSION').required().asString()
+    JOULES_CONVERSION= env.get('JOULES_CONVERSION').required().asString(),
+    SOLAR_EXPORT_ENABLED = env.get('SOLAR_EXPORT_ENABLED').default(false).asBool(),
+    SOLAR_EXPORT_MPAN = env.get('SOLAR_EXPORT_MPAN').asString();
 
 
 const boot = async (callback) => {
@@ -51,6 +53,8 @@ const boot = async (callback) => {
         VOLUME_CORRECTION = ${VOLUME_CORRECTION}
         CALORIFIC_VALUE = ${CALORIFIC_VALUE}
         JOULES_CONVERSION = ${JOULES_CONVERSION}
+        SOLAR_EXPORT_ENABLED = ${SOLAR_EXPORT_ENABLED}
+        SOLAR_EXPORT_MPAN = ${SOLAR_EXPORT_MPAN}
     `)
 
 
@@ -65,6 +69,7 @@ const boot = async (callback) => {
         // Retrieve data from octopus API
         let electricresponse = null;
         let gasresponse = null;
+        let solarexportresponse = null;
         try{
             let options = {auth: {
                 username: OCTO_API_KEY
@@ -72,6 +77,9 @@ const boot = async (callback) => {
             electricresponse = await axios.get(`https://api.octopus.energy/v1/electricity-meter-points/${OCTO_ELECTRIC_MPAN}/meters/${OCTO_ELECTRIC_SN}/consumption?page_size=${PAGE_SIZE}`, options)
             gasresponse = await axios.get(`https://api.octopus.energy/v1/gas-meter-points/${OCTO_GAS_MPRN}/meters/${OCTO_GAS_SN}/consumption?page_size=${PAGE_SIZE}`, options)
 
+            if (SOLAR_EXPORT_ENABLED){
+                solarexportresponse = await axios.get(`https://api.octopus.energy/v1/electricity-meter-points/${SOLAR_EXPORT_MPAN}/meters/${OCTO_ELECTRIC_SN}/consumption?page_size=${PAGE_SIZE}`, options)
+            }
             
         } catch(e){
             console.log("Error retrieving data from octopus API")
@@ -126,6 +134,23 @@ const boot = async (callback) => {
             writeApi.writePoint(gaskwhpoint)
             writeApi.writePoint(gascostpoint)
 
+        }
+
+        // And finally do the same for solar if enabled
+        if (SOLAR_EXPORT_ENABLED){
+            for await ( obj of solarexportresponse.data.results) {
+                // Here we take the end interval, and convert it into nanoseconds for influxdb as nodejs works with ms, not ns
+                const ts = new Date(obj.interval_end)
+                const nanoDate = toNanoDate(String(ts.valueOf()) + '000000')
+                
+                // work out the consumption and hard set the datapoint's timestamp to the interval_end value from the API
+                let electricpoint = new Point('electricity_export')
+                    .floatField('consumption', Number(obj.consumption))
+                    .timestamp(nanoDate)
+    
+                // and then write the points:
+                writeApi.writePoint(electricpoint)
+            }
         }
 
         await writeApi
