@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "2025-rewrite" ]
+  pull_request:
+    branches: [ "2025-rewrite" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file docker/Dockerfile --tag octopusenergy-consumption-metrics:$(date +%s)
