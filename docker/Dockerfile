@@ -1,6 +1,5 @@
-FROM node:19.6.0-buster-slim
+FROM node:22.14.0-alpine
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install
-RUN npm audit fix
 CMD ["npm", "run", "start"]
